@@ -63,6 +63,7 @@ else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 fi
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
@@ -122,7 +123,18 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+export TERM=xterm-256color
 
 export ALTERAOCLSDKROOT="/opt/altera/14.0/hld"
 
 export QSYS_ROOTDIR="/opt/altera/14.0/quartus/sopc_builder/bin"
+
+export POWERLINE_CONFIG_COMMAND=/home/dvincelette/.local/bin/powerline-config
+export POWERLINE_CONFIG=/home/dvincelette/.local/bin/powerline-config
+export POWERLINE_COMMAND=/home/dvincelette/.local/bin/powerline
+
+/home/dvincelette/.local/bin/powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /home/dvincelette/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
